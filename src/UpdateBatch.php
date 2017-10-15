@@ -49,7 +49,7 @@ class UpdateBatch
             {
                 if ($field !== $index)
                 {
-                    $final[$field][] = 'WHEN "' . $val[$index] . '" THEN "' . $val[$field] . '" ';
+                    $final[$field][] = 'WHEN `' . $index . '` = "' . $val[$index] . '" THEN "' . $val[$field] . '" ';
                 }
             }
         }
@@ -57,8 +57,7 @@ class UpdateBatch
         $cases = '';
         foreach ($final as $k => $v)
         {
-            $cases .= $k.' = (CASE '.$val[$index]['field']."\n"
-                . implode("\n", $v) . "\n"
+            $cases .= $k.' = (CASE '. implode("\n", $v) . "\n"
                 . 'ELSE '.$k.' END), ';
         }
 
